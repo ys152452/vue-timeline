@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <h1>Vue-Timeline</h1>
+    <router-link to='/'>example_0</router-link>
+    <router-link to='1'>example_1</router-link>
     <router-view/>
   </div>
 </template>

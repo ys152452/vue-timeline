@@ -12,6 +12,7 @@
         <div class="tl-item-content" :style="itemContentStyle">
           <div class="tl-content" :style="`${contentStyle} borderRadius: ${option.items.itemStyle.borderRadius}; background: ${contentBackgroundStyle}`"></div>
         </div>
+        <div :class="`tl-mark tl-mark-${option.items.position} tl-mark-${option.items.markpoint.type}`" :style="`${markpointStyle} background: ${markPointBackgroundStyle}`"></div>
       </li>
     </ul>
   </div>
@@ -40,7 +41,7 @@ export default {
         },
         items: {
           position: 'top',
-          distanceToAxis: '0',
+          distanceToAxis: '30px',
           itemList: [],
           itemStyle: {
             width: '50%',
@@ -48,6 +49,13 @@ export default {
             borderRadius: '4px',
             backgroundColor: '#f0f0f0',
             backgroundImage: ''
+          },
+          markpoint: {
+            type: 'circle',
+            backgroundColor: '#ffe1a1',
+            backgroundImage: '',
+            width: '.4rem',
+            height: '.4rem'
           }
         }
       },
@@ -56,8 +64,10 @@ export default {
       itemStyle: '',
       itemContentStyle: '',
       contentStyle: '',
-      contentMargin: '0',
-      contentBackgroundStyle: ''
+      contentBackgroundStyle: '',
+      markpointStyle: '',
+      markPointBackgroundStyle: '',
+      axisHalfWidth: '.1rem'
     }
   },
   created () {
@@ -78,10 +88,13 @@ export default {
           this.propOption.items['position'] = 'right'
         }
         break
-    }
+    } 
     this.option = this._.defaultsDeep(this.propOption, this.optionDefault)
+    this.axisHalfWidth = this.option.axis.axisStyle.axisWidth.replace(/rem|%|px|em|pt/, '') / 2 + this.option.axis.axisStyle.axisWidth.match(/rem|%|px|em|pt/)[0]
     this.axisBackgroundStyle = `${this.option.axis.axisStyle.backgroundColor} url(${this.option.axis.axisStyle.backgroundImage}) repeat-${this.option.axis.align === 'horizontal' ? 'x' : 'y'}`
     this.contentBackgroundStyle = `${this.option.items.itemStyle.backgroundColor} url(${this.option.items.itemStyle.backgroundImage}) repeat-${this.option.axis.align === 'horizontal' ? 'x' : 'y'}`
+    this.markpointStyle = `background-size: cover; width: ${this.option.items.markpoint.width}; height: ${this.option.items.markpoint.height};`
+    this.markPointBackgroundStyle = `${this.option.items.markpoint.backgroundColor} url(${this.option.items.markpoint.backgroundImage}) no-repeat`
     if (this._.difference([this.option.items.position], ['top-bottom', 'left-right']).length > 0) {
       this.itemSize = (100 / this.option.items.itemList.length).toFixed(2) - 0.01 + '%'
       this.itemStyle = `width:${this.option.axis.align === 'horizontal' ? this.itemSize : '100%'}; height:${this.option.axis.align === 'vertical' ? this.itemSize : '100%'}`
@@ -95,7 +108,7 @@ export default {
     switch (position) {
       case 'top':
         this.itemContentStyle = `height: calc(100% - ${this.option.axis.axisStyle.axisWidth});\
-          bottom: 0;`
+          top: ${this.axisHalfWidth};`
         this.contentStyle = `left: 50%;\
           bottom: ${this.option.items.distanceToAxis};\
           width: ${this.option.items.itemStyle.width};\
@@ -104,7 +117,7 @@ export default {
         break
       case 'bottom':
         this.itemContentStyle = `height: calc(100% - ${this.option.axis.axisStyle.axisWidth});\
-          bottom: -${this.option.axis.axisStyle.axisWidth};`
+          top: ${this.axisHalfWidth};`
         this.contentStyle = `left: 50%;\
           top: ${this.option.items.distanceToAxis};\
           width: ${this.option.items.itemStyle.width};\
@@ -120,7 +133,7 @@ export default {
         break
       case 'left':
         this.itemContentStyle = `width: calc(100% - ${this.option.axis.axisStyle.axisWidth});\
-          right: 0;`
+          left: ${this.axisHalfWidth};`
         this.contentStyle = `top: 50%;\
           right: ${this.option.items.distanceToAxis};\
           width: ${this.option.items.itemStyle.width};\
@@ -129,7 +142,7 @@ export default {
         break
       case 'right':
         this.itemContentStyle = `width: calc(100% - ${this.option.axis.axisStyle.axisWidth});\
-          right: -${this.option.axis.axisStyle.axisWidth};`
+          left: ${this.axisHalfWidth};`
         this.contentStyle = `top: 50%;\
           left: ${this.option.items.distanceToAxis};\
           width: ${this.option.items.itemStyle.width};\
@@ -148,19 +161,18 @@ export default {
   },
   mounted () {
     let itemTypeArr = ['top', 'bottom', 'left', 'right']
-    let contentPositionArr = [`-${this.option.axis.axisStyle.axisWidth}`, '0']
     if (this.option.items.position === 'top-bottom') {
       for (let i = 0; i < this.option.items.itemList.length; i++) {
         document.getElementsByClassName('tl-item-top-bottom')[i].style.left = this._.trim(this.itemSize, '%') / 2 * i + '%'
-        document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[1 - i % 2]] = this.contentMargin
-        document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[1]] = contentPositionArr[1 - i % 2]
+        document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[1 - i % 2]] = this.option.items.distanceToAxis
+        document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[1]] = `-${this.axisHalfWidth}`
       }
     }
     if (this.option.items.position === 'left-right') {
       for (let i = 0; i < this.option.items.itemList.length; i++) {
         document.getElementsByClassName('tl-item-left-right')[i].style.top = this._.trim(this.itemSize, '%') / 2 * i + '%'
-        document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[3 - i % 2]] = this.contentMargin
-        document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[3]] = contentPositionArr[1 - i % 2]
+        document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[3 - i % 2]] = this.option.items.distanceToAxis
+        document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[3]] = `-${this.axisHalfWidth}`
       }
     }
   }
@@ -191,8 +203,37 @@ export default {
     position: absolute;
     box-sizing: border-box;
     .tl-item{
+      position: relative;
       box-sizing: border-box;
       float: left;
+      .tl-mark{
+        position: absolute;
+        &.tl-mark-top{
+          left: 50%;
+          transform: translateX(-50%)
+        }
+        &.tl-mark-bottom{
+          left: 50%;
+          top: 0;
+          transform: translate(-50%, -50%)
+        }
+        &.tl-mark-top-bottom{
+          left: 50%;
+        }
+        &.tl-mark-left{
+          right: 0;
+          top: 50%;
+          transform: translate(50%, -50%)
+        }
+        &.tl-mark-right{
+          left: 0;
+          top: 50%;
+          transform: translate(-50%, -50%)
+        }
+        &.tl-mark-left-right{
+          top: 50%;
+        }
+      }
       .tl-item-content{
         position: relative;
         width: 100%;
@@ -204,17 +245,31 @@ export default {
       &.tl-item-top-bottom{
         &:nth-of-type(odd){
           top: 0;
+          .tl-mark-top-bottom{
+            transform: translateX(-50%)
+          }
         }
         &:nth-of-type(even){
           bottom: 0;
+          .tl-mark-top-bottom{
+            top: 0;
+            transform: translate(-50%, -50%)
+          }
         }
       }
       &.tl-item-left-right{
         &:nth-of-type(odd){
           left: 0;
+          .tl-mark-left-right{
+            right: 0;
+            transform: translate(50%, -50%)
+          }
         }
         &:nth-of-type(even){
           right: 0;
+          .tl-mark-left-right{
+            transform: translate(-50%, -50%)
+          }
         }
       }
     }

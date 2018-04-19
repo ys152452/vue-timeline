@@ -3,7 +3,6 @@
     <timeline :propOption='tlOption'></timeline>
   </div>
 </template>
-
 <script>
 import timeline from './timeline/timeline'
 export default {

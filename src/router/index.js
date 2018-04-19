@@ -8,7 +8,6 @@ import Example4 from '@/components/ex_hor_topBottom'
 import Example5 from '@/components/ex_ver_leftRight'
 
 Vue.use(Router)
-
 export default new Router({
   routes: [
     {

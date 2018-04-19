@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Vue-Timeline</h1>
+    <h1> Vue-Timeline</h1>
     <router-link to='/'>example_top</router-link>
     <router-link to='1'>example_left</router-link>
     <router-link to='2'>example_bottom</router-link>

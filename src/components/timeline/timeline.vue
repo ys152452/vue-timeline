@@ -307,22 +307,24 @@ export default {
           break
         case 'top-bottom':
           for (let i = 0; i < _this.option.items.itemList.length; i++) {
+            let itemDom = document.getElementsByClassName('tl-item-top-bottom')[i]
             document.getElementsByClassName('tl-item-top-bottom')[i].style.left = _this._.trim(_this.itemSize, '%') / 2 * i + '%'
-            if (document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-content').length > 0)document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[1 - i % 2]] = _this.option.items.distanceToAxis
-            if (document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-item-content').length > 0)document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[1]] = `-${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-mark-line').length > 0)document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-mark-line')[0].style[itemTypeArr[1 - i % 2]] = `${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-completed')[0].style[itemTypeArr[1 - i % 2]] = `-${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-top-bottom')[i].getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-top-bottom')[_this.option.completed - 1].getElementsByClassName('tl-completed')[0].style.borderRadius = '0 16px 16px 0'
+            if (itemDom.getElementsByClassName('tl-content').length > 0)itemDom.getElementsByClassName('tl-content')[0].style[itemTypeArr[1 - i % 2]] = _this.option.items.distanceToAxis
+            if (itemDom.getElementsByClassName('tl-item-content').length > 0)itemDom.getElementsByClassName('tl-item-content')[0].style[itemTypeArr[1]] = `-${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-mark-line').length > 0)itemDom.getElementsByClassName('tl-mark-line')[0].style[itemTypeArr[1 - i % 2]] = `${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-completed').length > 0)itemDom.getElementsByClassName('tl-completed')[0].style[itemTypeArr[1 - i % 2]] = `-${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-top-bottom')[_this.option.completed - 1].getElementsByClassName('tl-completed')[0].style.borderRadius = '0 16px 16px 0'
           }
           break
         case 'left-right':
           for (let i = 0; i < _this.option.items.itemList.length; i++) {
-            document.getElementsByClassName('tl-item-left-right')[i].style.top = _this._.trim(_this.itemSize, '%') / 2 * i + '%'
-            if (document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-content').length > 0)document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-content')[0].style[itemTypeArr[3 - i % 2]] = _this.option.items.distanceToAxis
-            if (document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-item-content').length > 0)document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-item-content')[0].style[itemTypeArr[3]] = `-${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-mark-line').length > 0)document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-mark-line')[0].style[itemTypeArr[3 - i % 2]] = `${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-completed')[0].style[itemTypeArr[3 - i % 2]] = `-${_this.axisHalfWidth}`
-            if (document.getElementsByClassName('tl-item-left-right')[i].getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-left-right')[_this.option.completed - 1].getElementsByClassName('tl-completed')[0].style.borderRadius = '0 0 16px 16px'
+            let itemDom = document.getElementsByClassName('tl-item-left-right')[i]
+            itemDom.style.top = _this._.trim(_this.itemSize, '%') / 2 * i + '%'
+            if (itemDom.getElementsByClassName('tl-content').length > 0)itemDom.getElementsByClassName('tl-content')[0].style[itemTypeArr[3 - i % 2]] = _this.option.items.distanceToAxis
+            if (itemDom.getElementsByClassName('tl-item-content').length > 0)itemDom.getElementsByClassName('tl-item-content')[0].style[itemTypeArr[3]] = `-${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-mark-line').length > 0)itemDom.getElementsByClassName('tl-mark-line')[0].style[itemTypeArr[3 - i % 2]] = `${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-completed').length > 0)itemDom.getElementsByClassName('tl-completed')[0].style[itemTypeArr[3 - i % 2]] = `-${_this.axisHalfWidth}`
+            if (itemDom.getElementsByClassName('tl-completed').length > 0)document.getElementsByClassName('tl-item-left-right')[_this.option.completed - 1].getElementsByClassName('tl-completed')[0].style.borderRadius = '0 0 16px 16px'
           }
           break
       }

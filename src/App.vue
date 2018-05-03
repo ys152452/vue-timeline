@@ -1,19 +1,83 @@
 <template>
   <div id="app">
     <h1> Vue-Timeline</h1>
-    <router-link to='/'>example_top</router-link>
-    <router-link to='1'>example_left</router-link>
-    <router-link to='2'>example_bottom</router-link>
-    <router-link to='3'>example_right</router-link>
-    <router-link to='4'>example_top-bottom</router-link>
-    <router-link to='5'>example_left-right</router-link>
+    <timeline :propOption='tlOption'></timeline>
     <router-view/>
   </div>
 </template>
 
 <script>
+import timeline from './components/timeline/timeline'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    timeline: timeline
+  },
+  data () {
+    return {
+      tlOption: {
+        height: '48px',
+        backgroundColor: '#fff',
+        completedBackgroundColor: '#B22222',
+        axis: {
+          align: 'horizontal',
+          axisStyle: {
+            axisWidth: '4px',
+            backgroundColor: '#000'
+          }
+        },
+        items: {
+          position: 'bottom',
+          distanceToAxis: '4px',
+          itemStyle: {
+            borderWidth: '0',
+            width: '80%',
+            height: '30%'
+          },
+          titleText: {
+            fontSize: '12px',
+            borderWidth: '1px',
+            borderColor: '#000',
+            borderRadius: '20px'
+          },
+          itemList: [
+            {
+              title: 'example_top',
+              link: '/'
+            },
+            {
+              title: 'example_left',
+              link: '1'
+            },
+            {
+              title: 'example_bottom',
+              link: '2'
+            },
+            {
+              title: 'example_right',
+              link: '3'
+            },
+            {
+              title: 'example_top-bottom',
+              link: '4'
+            },
+            {
+              title: 'example_left-right',
+              link: '5'
+            }
+          ],
+          markpoint: {
+            backgroundColor: '#fff',
+            width: '10px',
+            height: '10px'
+          },
+          markLine: {
+            show: false
+          }
+        }
+      }
+    }
+  }
 }
 </script>
 

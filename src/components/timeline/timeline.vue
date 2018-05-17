@@ -88,7 +88,7 @@ export default {
           itemList: [],
           // 单个节点样式配置项👇👇👇
           itemStyle: {
-            width: '50%',
+            width: '70%',
             height: '70%',
             borderRadius: '0',
             backgroundColor: '#fff',

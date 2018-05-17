@@ -6,6 +6,7 @@ import Example2 from '@/components/ex_hor_bottom'
 import Example3 from '@/components/ex_ver_right'
 import Example4 from '@/components/ex_hor_topBottom'
 import Example5 from '@/components/ex_ver_leftRight'
+import Example6 from '@/components/ex_margin'
 
 Vue.use(Router)
 export default new Router({
@@ -39,6 +40,11 @@ export default new Router({
       path: '/5',
       name: 'example_5',
       component: Example5
+    },
+    {
+      path: '/6',
+      name: 'example_6',
+      component: Example6
     }
   ]
 })

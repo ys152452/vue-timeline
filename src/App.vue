@@ -64,6 +64,10 @@ export default {
             {
               title: 'example_left-right',
               link: '5'
+            },
+            {
+              title: 'example_margin',
+              link: '6'
             }
           ],
           markpoint: {
